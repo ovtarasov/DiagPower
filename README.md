@@ -22,3 +22,6 @@ The proposed tool will allow users to:
 
 ### References  
 - Hanley JA, McNeil BJ. [The meaning and use of the area under a receiver operating characteristic (ROC) curve](https://doi.org/10.1148/radiology.143.1.7063747). Radiology. 1982 Apr;143(1):29-36.
+- DeLong ER, DeLong DM, Clarke-Pearson DL. [Comparing the areas under two or more correlated receiver operating characteristic curves: a nonparametric approach](https://doi.org/10.2307/2531595). Biometrics. 1988 Sep;44(3):837-45. PMID: 3203132.  
+- Carter JV, Pan J, Rai SN, Galandiuk S. [ROC-ing along: Evaluation and interpretation of receiver operating characteristic curves](https://doi.org/10.1016/j.surg.2015.12.029). Surgery. 2016 Jun;159(6):1638-1645.
+
