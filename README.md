@@ -37,7 +37,7 @@ Project for the [Public Health Hackathon'2025](https://bioinf.institute/hack2025
 
 ### Aims and scopes
 
-We developed DiagPower—an open-source R-based tool (available as a Shiny application and R package)—to address critical gaps in statistical planning for diagnostic accuracy studies using ROC curve analysis.
+DiagPower—an open-source R-based tool (available as a Shiny application and R package)—to address critical gaps in statistical planning for diagnostic accuracy studies using ROC curve analysis.
 
 #### Background
 ROC curves and the Area Under the Curve (AUC) are gold-standard metrics for evaluating diagnostic test performance in clinical epidemiology and public health. Despite their widespread use, researchers often lack accessible tools to: 
