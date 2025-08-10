@@ -198,5 +198,87 @@ plot <- data %>%
   black_theme(plot)
 ```
 
+# Results of presize and DiagPower
+```{r}
+# Create function to reverse-estimate statistical power using Hanley&McNeil (1982) formula
+# Parameters are the same as in the ROC_sample_size() function
 
+power_th <- function(AUC, 
+                     n, 
+                     AUC_ref = 0.5,
+                     k = 1, #positive/negative sample sizes ratio 
+                     prev = NULL, #population prevalence of the disease
+                     alpha = 0.05,
+                     two_sided=T) {
+    
+    if(!two_sided) alpha <- alpha*2
+    
+    q0 <- AUC*(1-AUC)
+    q1 <- AUC/(2-AUC)-AUC^2
+    q2 <- 2*AUC^2/(1+AUC)-AUC^2
+    se_AUC <- sqrt((q0+(k*n-1)*q1+(n-1)*q2)/(k*n^2))
+    
+    return(pnorm((AUC - AUC_ref)/se_AUC - qnorm(1 - alpha/2)))
+    }
 
+```
+
+```{r}
+# Create data for comparison
+
+AUC_desired = 0.83 # from m1 = 4, m2 = 6, sd1 = sd2 = 1.5)
+AUC_seq = seq(0.5, 0.8, 0.02) # Create set of reference AUCs
+presize_conf_width <- 2*(AUC_desired-AUC_seq) # CI widths for presize; CI width = 2*(AUC_desired - AUC_ref)
+
+# Calculate sample sizes using presize with 1:1 ratio of samples and different CI widths
+n_presize <- map_vec(AUC_seq, function(AUC_seq) 
+    presize::prec_auc(auc = AUC_desired, prev = 0.5, conf.width = 2*(AUC_desired-AUC_seq))[[2]]) 
+
+# Check statistical power for different presize runs 
+power_AUC_seq <- map2_vec(AUC_seq, n_presize, function(AUC_seq, n_presize) 
+    power_th(AUC = 0.83, AUC_ref = AUC_seq, n = n_presize))
+
+# Create set of simulated confidence intervals
+sim_conf_width <- map_vec(n_presize, function(n_presize){
+    AUC_data <- replicate(
+        pROC::ci.auc(
+            predictor = c(
+                rnorm(n=n_presize, 4, 1.5), #values of predictor in a positive group
+                rnorm(n=n_presize, 6, 1.5)), #values of predictor in a negative group
+            response = c(rep(1, n_presize), rep(0, n_presize)),
+            method = "delong",
+            conf.level = 0.95),
+        n = 500 #the number of replications
+    ) %>% 
+        as_tibble()
+    
+    CI_low <- AUC_data %>% slice(1) %>% as.matrix() %>% as.vector()
+    CI_high <- AUC_data %>% slice(3) %>% as.matrix() %>% as.vector()
+    mean(CI_high)-mean(CI_low)    
+    }
+    )
+
+# Transform data for plotting
+toplot <- as_tibble(cbind(AUC_seq, presize_conf_width, sim_conf_width)) %>% 
+    pivot_longer(cols = c("presize_conf_width", "sim_conf_width"), names_to = "tool")
+
+```
+
+# Comparison of sample size calculation by MedCalc and DiagPower
+```{r, fig.align='center'}
+plot2 <- toplot %>% 
+    ggplot(aes(x = AUC_seq, y = value, color = tool)) +
+    geom_line() +
+    geom_point() +
+    scale_color_manual(values = c("red", "lightblue"), labels = c("presize", "DiagPower")) +
+    labs(x = "Reference AUC", y="Confidence interval width",
+         title = "Comparison of CI width preset in presize and calculated by DiagPower",
+         subtitle = expression("α=0.05, power=0.8"),
+         caption = "AUC = 0.83 (estimated in DiagPower with mu1=4, mu2=6, sd1=sd2=1.5), CI width in presize = AUC - [0.5 : 0.8], sample size calculated in presize according to CI width",
+         color = NULL) +
+    scale_x_continuous(breaks = seq(0.5, 1, by=0.05)) +
+    scale_y_continuous(breaks = seq(0, 1, by=0.05))
+
+black_theme(plot2) +
+    theme(plot.caption = element_text(color = "white", hjust = 0.5, vjust = 0))
+```
