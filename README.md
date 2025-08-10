@@ -7,7 +7,7 @@
 4. Consult resources:
    - [`Parameter_guide.pdf`](path/to/Parameter_guide.pdf) - comprehensive descriptions
    - [`Q&A.md`](path/to/Q&A.md) - frequently asked questions
-5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times ouе
+5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times out
 
 
 #### Troubleshooting:
