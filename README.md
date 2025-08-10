@@ -10,22 +10,22 @@
 5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times ouе
 
 
-# Troubleshooting
+#### Troubleshooting
 
-# App won't launch
+#### App won't launch
 - Ensure you have:
   - Stable internet connection
   - PDF reader that supports hyperlinks (Adobe Acrobat recommended)
   - Pop-ups not blocked in your browser
 
-# Error messages
+#### Error messages
 | Error | Solution |
 |-------|----------|
 | "Application disconnected" | Refresh the page |
 | "502 Bad Gateway" | Wait 2 minutes and reload |
 | Blank screen | Clear browser cache |
 
-# Session timeout
+#### Session timeout
 The app automatically disconnects after 30 minutes of inactivity. To resume:
 1. Close the browser tab
 2. Reopen from [`Repo.pdf`](path/to/Repo.pdf)
