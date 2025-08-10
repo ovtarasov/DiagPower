@@ -37,6 +37,28 @@ Project for the [Public Health Hackathon'2025](https://bioinf.institute/hack2025
 
 ### Aims and scopes
 
+We developed DiagPower—an open-source R-based tool (available as a Shiny application and R package)—to address critical gaps in statistical planning for diagnostic accuracy studies using ROC curve analysis.
+
+#### Background
+ROC curves and the Area Under the Curve (AUC) are gold-standard metrics for evaluating diagnostic test performance in clinical epidemiology and public health. Despite their widespread use, researchers often lack accessible tools to: 
+- Calculate sample sizes for non-standard hypotheses (e.g., AUC > 0.7 rather than AUC > 0.5)
+- Account for multiple testing corrections (e.g.  Bonferroni)
+- Plan studies with precision-based targets (e.g., confidence interval width).
+
+#### Key Features
+DiagPower enables users to:
+- Sample Size Estimation
+- Determine the sample size needed to test whether an AUC exceeds a user-defined null value (e.g., AUC₀ = 0.6)
+- Compare two AUCs with adjustable power and significance levels
+- Multiple Testing Adjustments
+- Adjust calculations for simultaneous hypothesis testing (Bonferroni)
+- Precision-Based Planning
+
+#### Advantages Over Existing Tools:
+- Open-source and modular (R/Shiny framework). Completely free, no subscreption or license needed
+- Flexible hypotheses (no restriction to AUC₀ = 0.5)
+- Comprehensive adjustments (multiplicity, covariates)
+
 This project aims to develop an open-source R-based tool (as a Shiny app, package, or just script with functions) for the statistical planning of diagnostic accuracy studies using ROC curve analysis.  
 ROC curves and AUC (Area Under the Curve) are widely used in public health and clinical epidemiology to assess diagnostic test performance. However, many researchers lack accessible tools to properly calculate required sample sizes, particularly when dealing with non-standard hypotheses or multiple testing corrections.
 
