@@ -4,14 +4,32 @@ How to run DiagPower:
 1. Open the [`Repo.pdf`](path/to/Repo.pdf) file from this repository on your computer. 
 2. Click the "here" button inside the section titled *"To run our DiagPower app click here"*
 3. Wait for the Shiny app to load (may take 2-30 seconds initially)
-4. Check comprehensive parameter descriptions in [`Parameter_descriptions.pdf`](path/to/Parameter_descriptions.pdf) and Q&A section
-5. Reload DiagPower from the [`Repo.pdf`](path/to/Repo.pdf) if needed when the session times out
+4. Consult resources:
+   - [`Parameter_guide.pdf`](path/to/Parameter_guide.pdf) - comprehensive descriptions
+   - [`Q&A.md`](path/to/Q&A.md) - frequently asked questions
+5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times ouе
 
-   
 
-If the app doesn't load after 1 minute, try:
-- Refresh the page
-- Clear browser cache
+## 🔧 Troubleshooting
+
+### App won't launch
+- Ensure you have:
+  - Stable internet connection
+  - PDF reader that supports hyperlinks (Adobe Acrobat recommended)
+  - Pop-ups not blocked in your browser
+
+### Error messages
+| Error | Solution |
+|-------|----------|
+| "Application disconnected" | Refresh the page |
+| "502 Bad Gateway" | Wait 2 minutes and reload |
+| Blank screen | Clear browser cache |
+
+### Session timeout
+The app automatically disconnects after 30 minutes of inactivity. To resume:
+1. Close the browser tab
+2. Reopen from [`Repo.pdf`](path/to/Repo.pdf)
+
 
 ### Project description
 
