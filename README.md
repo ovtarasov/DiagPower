@@ -8,8 +8,8 @@ How to run DiagPower:
 5. Reload DiagPower from the [`Repo.pdf`](path/to/Repo.pdf) if needed when the session times out
 
 If the app doesn't load after 1 minute, try:
-> - Refresh the page
-> - Clear browser cache
+- Refresh the page
+- Clear browser cache
 
 ### Project description
 
