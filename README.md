@@ -49,24 +49,12 @@ ROC curves and the Area Under the Curve (AUC) are gold-standard metrics for eval
 DiagPower enables users to:
 - Sample Size Estimation
 - Determine the sample size needed to test whether an AUC exceeds a user-defined null value (e.g., AUC₀ = 0.6)
-- Compare two AUCs with adjustable power and significance levels
-- Multiple Testing Adjustments
-- Adjust calculations for simultaneous hypothesis testing (Bonferroni)
-- Precision-Based Planning
+- Multiple Testing Adjustments (Bonferroni)
+- Prevelence-Based Planning
 
 #### Advantages Over Existing Tools:
 - Open-source and modular (R/Shiny framework). Completely free, no subscreption or license needed
-- Flexible hypotheses (no restriction to AUC₀ = 0.5)
-- Comprehensive adjustments (multiplicity, covariates)
-
-This project aims to develop an open-source R-based tool (as a Shiny app, package, or just script with functions) for the statistical planning of diagnostic accuracy studies using ROC curve analysis.  
-ROC curves and AUC (Area Under the Curve) are widely used in public health and clinical epidemiology to assess diagnostic test performance. However, many researchers lack accessible tools to properly calculate required sample sizes, particularly when dealing with non-standard hypotheses or multiple testing corrections.
-
-The proposed tool will allow users to:  
-1. Estimate the sample size needed to detect whether an AUC exceeds a specified null value (not limited to AUC₀ = 0.5).  
-2. Compare two AUCs with defined statistical power and significance levels.  
-3. Adjust sample size calculations to control for multiple hypothesis testing (e.g., using FDR or Bonferroni correction).  
-4. Calculate the sample size required to achieve a target width of 95% confidence intervals for sensitivity, specificity, PPV &amp; NPV.  
+- Does not require expected AUC or AUC₀ = 0.5
 
 ### Team members  
  - **Alexey Glazkov** *(Independent researcher)* &ndash; project leader
