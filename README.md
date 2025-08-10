@@ -23,8 +23,8 @@
 
 ##### > Session timeout
 The app automatically disconnects after 30 minutes of inactivity. To resume:
-1. Close the browser tab
-2. Reopen from [`Repo.pdf`](path/to/Repo.pdf)
+1. Close the browser tab.
+2. Reopen via [link](https://katenaserova.shinyapps.io/diagpower/).
 
 
 ### Project description
@@ -39,18 +39,17 @@ DiagPower—an open-source R-based tool (available as a Shiny application and R 
 ROC curves and the Area Under the Curve (AUC) are gold-standard metrics for evaluating diagnostic test performance in clinical epidemiology and public health. Despite their widespread use, researchers often lack accessible tools to: 
 - Calculate sample sizes for non-standard hypotheses (e.g., AUC > 0.7 rather than AUC > 0.5)
 - Account for multiple testing corrections (e.g.  Bonferroni)
-- Plan studies with precision-based targets (e.g., confidence interval width).
+- Plan studies with precision-based targets (e.g., prescribed statistical power or confidence interval width).
 
 #### Key Features
 DiagPower enables users to:
-- Sample Size Estimation
-- Determine the sample size needed to test whether an AUC exceeds a user-defined null value (e.g., AUC₀ = 0.6)
+- Determine the sample size needed to test whether an AUC exceeds a user-defined null value (e.g., AUC₀ = 0.6) with desired statistical power
 - Multiple Testing Adjustments (Bonferroni)
-- Prevelence-Based Planning
+- Prevalence-Based Planning
 
 #### Advantages Over Existing Tools:
-- Open-source and modular (R/Shiny framework). Completely free, no subscreption or license needed
-- Does not require AUC₀ = 0.5
+- Open-source and modular (R/Shiny framework). Completely free, no subscription needed
+- Is not stuck to AUC₀ = 0.5
 
 ### Team members  
  - **Alexey Glazkov** *(Independent researcher)* &ndash; project leader
