@@ -7,6 +7,11 @@ How to run DiagPower:
 4. Check comprehensive parameter descriptions in [`Parameter_descriptions.pdf`](path/to/Parameter_descriptions.pdf) and Q&A section
 5. Reload DiagPower from the [`Repo.pdf`](path/to/Repo.pdf) if needed when the session times out
 
+If the app doesn't load after 1 minute, try:
+> - Refresh the page
+> - Clear browser cache
+
+### Project description
 
 Project for the [Public Health Hackathon'2025](https://bioinf.institute/hack2025) \(Kazakhstan, Almaty 8 – 10 August 2025\)  
 
