@@ -54,7 +54,7 @@ DiagPower enables users to:
 
 #### Advantages Over Existing Tools:
 - Open-source and modular (R/Shiny framework). Completely free, no subscreption or license needed
-- Does not require expected AUC or AUC₀ = 0.5
+- Does not require AUC₀ = 0.5
 
 ### Team members  
  - **Alexey Glazkov** *(Independent researcher)* &ndash; project leader
