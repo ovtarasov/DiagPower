@@ -4,7 +4,7 @@
 1. Open the [`Repo.pdf`](path/to/Repo.pdf) file from this repository on your computer. 
 2. Click the "here" button inside the section titled *"To run our DiagPower app click here"*
 3. Wait for the Shiny app to load (may take 2-30 seconds initially)
-4. Consult [`Parameter_guide.pdf`]([path/to/Parameter_guide.pdf](https://github.com/ovtarasov/DiagPower/blob/main/Parameter_gide.html)) - comprehensive descriptions
+4. Consult [`Parameter_guide.pdf`]([path/to/Parameter_guide.pdf](Parameter_gide.html) - comprehensive descriptions
 5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times out
 
 
