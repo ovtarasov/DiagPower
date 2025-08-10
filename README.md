@@ -10,7 +10,7 @@
 5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times ouе
 
 
-#### Troubleshooting
+#### Troubleshooting:
 
 #### App won't launch
 - Ensure you have:
