@@ -1,5 +1,13 @@
 ## DiagPower: Sample Size Planning for Diagnostic Accuracy Studies
 
+How to run DiagPower:
+1. Open the [`Repo.pdf`](path/to/Repo.pdf) file from this repository on your computer. 
+2. Click the "here" button inside the section titled *"To run our DiagPower app click here"*
+3. Wait for the Shiny app to load (may take 2-30 seconds initially)
+4. Check comprehensive parameter descriptions in [`Parameter_descriptions.pdf`](path/to/Parameter_descriptions.pdf) and Q&A section
+5. Reload DiagPower from the [`Repo.pdf`](path/to/Repo.pdf) if needed when the session times out
+
+
 Project for the [Public Health Hackathon'2025](https://bioinf.institute/hack2025) \(Kazakhstan, Almaty 8 – 10 August 2025\)  
 
 ### Aims and scopes
