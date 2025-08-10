@@ -1,0 +1,202 @@
+---
+title: "DiagPower"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+library(tidyverse)
+library(flextable)
+```
+
+
+```{r plot-theme}
+
+black_theme <- function (plot) {
+  plot +
+  theme_bw() +
+  theme(legend.position = "top") +
+  theme(
+    plot.background = element_rect(fill = "black"),
+    panel.background = element_rect(fill = "black"), 
+    panel.grid = element_line(color = "gray30"),                 
+    axis.text = element_text(color = "white"),                   
+    axis.title = element_text(color = "white", face = "bold"),                  
+    plot.title = element_text(color = "white", face = "bold"),                  
+    plot.subtitle = element_text(color = "white"),
+    legend.background = element_rect(fill = "black"),
+    legend.text = element_text(color = "white")
+  )
+}
+```
+
+```{r}
+ROC_sample_size <- function(mu1, sd1, #mean and sd of positive group (diseased)
+         mu2, sd2, #mean and sd of negative group (healthy)
+         AUC_ref=0.5, #AUC value for comparison
+         k=1, #positive/negative sample sizes ratio 
+         prev=NULL, #population prevalence of the disease
+         alpha=0.05, #type I error
+         power=0.8, #1-beta(type II error)
+         max_size=500, #max sample size for the negative group
+         two_sided=FALSE,
+         seed = NULL,
+         min_size = 5, #min size for the negative group
+         n_of_rep = 2000,
+         num_of_tests = 1 #number of tests planned
+         ) {
+  
+alpha <- alpha/num_of_tests #Bonferroni correction
+  
+if(!is.null(seed)) set.seed(seed)
+  
+#is only two-sided CI is available in ci.auc function, for lower bound of CI for one-sided test alpha is multiplied by two
+if(!two_sided) alpha <- alpha*2
+
+if(is.null(prev) & !is.null(k)) 
+  message("If the ratio of positive to negative sample sizes in your data differs from that in the population, the calculated positive and negative predictive values will be incorrect.")
+else if(!is.null(prev) & is.null(k))
+  k <- prev/(1-prev)
+else if(!is.null(prev) & !is.null(k)) 
+  warning ("Both prev and k provided: using k and ignoring prev.")
+else if(is.null(prev) & is.null(k)) 
+  stop("prevalence or k must be provided")
+
+#in case of too small k, so sample size of positive group is < 5:
+if(round(min_size*k) < 5){
+  while(round(min_size*k) < 5){
+    min_size <- min_size + 1
+  }}
+
+int <- max_size - min_size
+# sample size of the negative group for the iteration
+n_seq <- c(
+  seq(min_size, min_size+round(int/4), 2),
+  seq(min_size+round(int/4)+3, min_size+round(int/2), 3),
+  seq(min_size+round(int/2)+4, min_size+round(3*int/4), 4),
+  seq(min_size+round(3 *(int/4))+5, max_size, 5))
+
+#tibble for the plot:
+n_power  <- tibble(
+  "n" = integer(length = length(n_seq)),
+  "power" = numeric(length = length(n_seq)))
+  
+for(n in n_seq){
+  AUC_data <- replicate(
+      pROC::ci.auc(
+      predictor = c(
+        rnorm(n=round(k*n), mu1, sd1), #values of predictor in a positive group
+        rnorm(n=n, mu2, sd2)), #values of predictor in a negative group
+      response = c(rep(1, round(n*k)), rep(0, n)),
+      method = "delong",
+      conf.level = 1 - alpha),
+      n = n_of_rep #number of replications
+      ) %>% 
+    as_tibble()
+    
+  CI_low <- AUC_data %>% slice(1) %>% as.matrix() %>% as.vector()
+  AUC_test <- AUC_data %>% slice(2) %>% as.matrix() %>% as.vector()
+  
+  sim_power <- mean(CI_low > AUC_ref)
+  mean_AUC <- mean(AUC_test)
+  
+  n_power$n[which(n_seq == n)] <- n + k*n
+  n_power$power[which(n_seq == n)] <- sim_power
+  
+  if(sim_power > power) {
+    text <- paste0("Sample size for negative group = ", n, "\n",
+              "Sample size for positive group = ", round(k*n), "\n",
+              "Power = ", round(sim_power * 100, 2), "%", "\n",
+              "AUC = ", round(mean_AUC, 2)
+              )
+    n_power <- n_power %>% 
+    filter(n > 0)
+    
+    plot <- n_power %>% 
+      ggplot(aes(x=n, y=power)) +
+      geom_line(color = "#BF87B3") + geom_point(color = "pink") +
+      labs(x = "Total size (positive + negative groups",
+           y = "Power",
+           title = "Power dynamics")
+    
+    return(list(cat(text), black_theme(plot)))
+    break
+    }
+}
+ if(sim_power < power) print ("Maximum sample size for negative group is reached and the desired power was not achieved. Try to lower the desired power or to increase the maximum sample size ")
+}
+```
+
+
+# Example
+```{r, message=FALSE, warning=FALSE}
+ROC_sample_size(
+  mu1=4.5, sd1=2, #mean and sd of positive group (diseased)
+  mu2=6, sd2=4, #mean and sd of negative group (healthy)
+  AUC_ref=0.5, #AUC value for comparison
+  k=1, #positive/negative sample sizes ratio
+  prev=NULL, #population prevalence of the disease
+  alpha=0.05, #type I error
+  power=0.8,
+  two_sided=T,
+  min_size = 50,
+  max_size = 600)
+```
+
+# Results of MedCalc and DiagPower
+```{r}
+#AUC при H0 = 0.5
+#different sd
+
+AUC_not_eq <- tibble(
+  AUC_test = c(0.57, 0.59, 0.62, 0.65, 0.68, 0.71, 0.74, 0.79),
+  DiagPower = c(274, 174,   92,   64,   42, 30, 22, 16),
+  MedCalc = c(266, 160, 89, 57, 39, 28, 21, 14)
+)
+
+#AUC при H0 = 0.5
+#equal sd
+AUC_eq <- tibble(
+  AUC_test = c(0.58, 0.62, 0.66, 0.7, 0.75, 0.77, 0.79),
+  DiagPower = c(184, 82, 48, 30, 18, 16, 14),
+  MedCalc = c(203, 89, 50, 31, 19, 16, 14)
+)
+
+data <- AUC_not_eq %>% add_column(sd="different") %>% 
+  bind_rows(AUC_eq %>% add_column(sd="equal")) %>% 
+  mutate(sd = paste("Standard deviations are", sd)) %>% 
+  pivot_longer(!c(AUC_test, sd), values_to = "sample_size")
+```
+
+
+```{r}
+AUC_not_eq %>% add_column(sd="different") %>% 
+  bind_rows(AUC_eq %>% add_column(sd="equal")) %>% 
+  mutate(sd = paste("Standard deviations are", sd)) %>% 
+  as_grouped_data("sd") %>% 
+  as_flextable(hide_grouplabel = TRUE) %>% 
+  theme_booktabs() %>% 
+  bold(part = "header")
+```
+
+
+# Comparison of sample size calculation by MedCalc and DiagPower
+```{r, fig.align='center'}
+plot <- data %>% 
+  ggplot(aes(x = AUC_test, y = sample_size, color=name)) +
+  geom_line() +
+  geom_point() +
+  facet_grid(. ~ sd) +
+  labs(x = "AUC expected", y="Sample size per each group",
+       title = "Comparison of sample size calculation by MedCalc and DiagPower",
+       subtitle = expression("α=0.05, power=0.8, AUC[ref] = 0.75"),
+       color = NULL) +
+  scale_x_continuous(breaks = seq(0.5, 1, by=0.05)) +
+  scale_y_continuous(breaks = seq(0, 600, by=50)) +
+  scale_colour_brewer(type = "qual")
+
+  black_theme(plot)
+```
+
+
+
