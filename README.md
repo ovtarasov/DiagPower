@@ -1,11 +1,9 @@
 ## DiagPower: Sample Size Planning for Diagnostic Accuracy Studies
 
 #### To run DiagPower:
-1. Open the [`Repo.pdf`](path/to/Repo.pdf) file from this repository on your computer. 
-2. Click the "here" button inside the section titled *"To run our DiagPower app click here"*
-3. Wait for the Shiny app to load (may take 2-30 seconds initially)
-4. Consult [`Parameter_guide.pdf`](Parameter_gide.html) - comprehensive descriptions
-5. Reload DiagPower via [`Repo.pdf`](path/to/Repo.pdf) if the session times out
+1. Open the DiagPower Shiny app via [link](https://katenaserova.shinyapps.io/diagpower/) (may take 2-30 seconds initially).
+2. Consult [`Parameter_guide.pdf`](Parameter_guide.pdf) for comprehensive descriptions.
+5. Reload DiagPower if the session times out.
 
 
 #### Troubleshooting:
