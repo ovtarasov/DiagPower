@@ -1,12 +1,16 @@
 ## DiagPower: Sample Size Planning for Diagnostic Accuracy Studies
 
-#### To run DiagPower:
+### To run DiagPower:
+
+#### Online
 1. Open the DiagPower Shiny app via [link](https://katenaserova.shinyapps.io/diagpower/) (may take 2-30 seconds initially).
 2. Consult [`Parameter_guide.pdf`](Parameter_guide.pdf) for comprehensive descriptions.
-5. Reload DiagPower if the session times out.
+3. Reload DiagPower if the session times out.
 
+#### Locally
+Download and extract [ShinyApp.zip](ShinyApp.zip) to run the application on your server or download and run [DiagPower.Rmd](DiagPower.Rmd).
 
-#### Troubleshooting:
+### Troubleshooting:
 
 ##### > App won't launch
 - Ensure you have:
@@ -31,11 +35,11 @@ The app automatically disconnects after 30 minutes of inactivity. To resume:
 
 Project for the [Public Health Hackathon'2025](https://bioinf.institute/hack2025) \(Kazakhstan, Almaty 8 – 10 August 2025\)  
 
-### Aims and scopes
+#### Aims and scopes
 
 DiagPower—an open-source R-based tool (available as a Shiny application and R package)—to address critical gaps in statistical planning for diagnostic accuracy studies using ROC curve analysis.
 
-#### Background
+##### Background
 ROC curves and the Area Under the Curve (AUC) are gold-standard metrics for evaluating diagnostic test performance in clinical epidemiology and public health. Despite their widespread use, researchers often lack accessible tools to: 
 - Calculate sample sizes for non-standard hypotheses (e.g., AUC > 0.7 rather than AUC > 0.5)
 - Account for multiple testing corrections (e.g.  Bonferroni)
